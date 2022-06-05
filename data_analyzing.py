@@ -2,9 +2,10 @@ from data_process import df
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
+plt.rcParams['font.sans-serif'] = ['Microsoft YaHei']
 
 # ----------淘宝在售手机价格区间统计---------
-plt.rcParams['font.family']=['Arial Unicode MS']
+# plt.rcParams['font.family']=['Arial Unicode MS']
 plt.figure(figsize=(10,5),dpi=200)
 
 #发现手机原价数据有异常，进行清洗
@@ -101,4 +102,25 @@ plt.imshow(wc2)
 plt.axis("off")
 plt.show()
 wc.to_file("手机类型词云图.png")
+
+# ----------------绘制手机品牌词云图--------------
+word_count=pd.Series(df['品牌'].tolist()).value_counts()
+font='/Users/zhaosiqi/Library/Fonts/simhei.ttf'
+# back_pic=imread('pic.jpg')
+wc = WordCloud(max_words=100,
+               scale=12,
+               max_font_size=50,
+               random_state=30,
+               background_color='white',
+               font_path=font)
+
+wc2 = wc.fit_words(word_count)
+
+plt.figure(figsize=(15,10))
+plt.imshow(wc2)
+plt.axis("off")
+plt.show()
+wc.to_file("手机品牌词云图.png")
+
+
 
