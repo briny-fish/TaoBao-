@@ -10,7 +10,8 @@ plt.rcParams['axes.unicode_minus'] = False    # 解决中文显示问题
 plt.figure(figsize=(10,5),dpi=200)
 
 #发现手机原价数据有异常，进行清洗
-df1=df.drop(df[df['商品原价']>15000].index)
+df1=df[df['评分']>4.5]
+df1=df1.drop(df1[df1['商品原价']>15000].index)
 
 x=df1['价格等级']
 # y = df1.groupby('价格等级').count().reset_index()
@@ -28,7 +29,7 @@ plt.show()
 #-----------商品现价&原价对比------------
 #先筛选评分 >4.5的具有分析意义的手机商品
 df1=df[df['评分']>4.5]
-
+df1=df1.drop(df1[df1['商品原价']>15000].index)
 price1=df1.groupby('品牌')['商品原价'].mean().reset_index()
 labels=price1['品牌']
 
